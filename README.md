@@ -190,7 +190,16 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 MIT License - see [LICENSE](LICENSE) for details.
 
-## Related Projects
+## Related Packages
+
+- [alphatheta-connect](https://github.com/chrisle/alphatheta-connect) — Pioneer Pro DJ Link integration
+- [stagelinq](https://github.com/chrisle/stagelinq) — Denon StageLinq protocol integration
+- [rekordbox-connect](https://github.com/chrisle/rekordbox-connect) — Rekordbox database integration
+- [serato-connect](https://github.com/chrisle/serato-connect) — Serato DJ integration
+
+These libraries power [Now Playing](https://nowplayingapp.com) — a real-time track display app for DJs and streamers.
+
+## See Also
 
 - [music-metadata](https://github.com/borewit/music-metadata) - Full-featured audio metadata library (requires full file access)
 - [node-id3](https://github.com/Zazama/node-id3) - ID3 tag reader/writer for Node.js
