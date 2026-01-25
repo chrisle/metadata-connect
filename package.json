@@ -1,0 +1,75 @@
+{
+  "name": "metadata-connect",
+  "version": "1.0.0",
+  "description": "Extract audio metadata (title, artist, album, BPM, key, artwork) from MP3, M4A, FLAC, and AIFF files with minimal network transfer using partial file reads",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "clean": "rm -rf dist",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "prepublishOnly": "npm run clean && npm run build && npm test"
+  },
+  "keywords": [
+    "metadata",
+    "audio",
+    "music",
+    "id3",
+    "id3v2",
+    "mp4",
+    "m4a",
+    "flac",
+    "aiff",
+    "mp3",
+    "aac",
+    "artwork",
+    "cover",
+    "album-art",
+    "bpm",
+    "tempo",
+    "key",
+    "genre",
+    "parser",
+    "extractor",
+    "dj",
+    "streaming",
+    "partial-read",
+    "network"
+  ],
+  "author": "Chris Le <chris@triodemusic.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrisle/metadata-connect.git"
+  },
+  "homepage": "https://github.com/chrisle/metadata-connect#readme",
+  "bugs": {
+    "url": "https://github.com/chrisle/metadata-connect/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.29",
+    "@vitest/coverage-v8": "^4.0.16",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.16"
+  }
+}
