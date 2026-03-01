@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.1.2
+
+- fix: resolve security vulnerabilities in dependencies
+
+
 ## v1.1.1
 
 - docs: add related packages section to README
