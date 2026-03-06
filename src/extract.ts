@@ -1,4 +1,6 @@
 import type { ExtractedMetadata, FileReader, MetadataParser } from './types.js';
+import type { Logger } from './types/logger.js';
+import { noopLogger } from './types/logger.js';
 import { extractFromMp3 } from './parsers/id3.js';
 import { extractFromMp4 } from './parsers/mp4.js';
 import { extractFromFlac } from './parsers/flac.js';
@@ -50,9 +52,18 @@ export function isExtensionSupported(extension: string): boolean {
 }
 
 /**
+ * Options for extractMetadata
+ */
+export interface ExtractMetadataOptions {
+  /** Optional logger instance. If omitted, logging is silently disabled. */
+  logger?: Logger;
+}
+
+/**
  * Extract metadata from an audio file using the appropriate parser
  *
  * @param reader - FileReader interface for reading file data
+ * @param options - Optional configuration including logger
  * @returns Extracted metadata, or null if extraction fails or format is unsupported
  *
  * @example
@@ -70,17 +81,29 @@ export function isExtensionSupported(extension: string): boolean {
  * }
  * ```
  */
-export async function extractMetadata(reader: FileReader): Promise<ExtractedMetadata | null> {
+export async function extractMetadata(
+  reader: FileReader,
+  options?: ExtractMetadataOptions,
+): Promise<ExtractedMetadata | null> {
+  const logger = options?.logger ?? noopLogger;
   const parser = getParserForExtension(reader.extension);
 
   if (!parser) {
+    logger.debug('No parser found for extension: %s', reader.extension);
     return null;
   }
 
   try {
-    return await parser(reader);
-  } catch {
-    // Return null on any parsing error
+    logger.debug('Extracting metadata from %s file (%d bytes)', reader.extension, reader.size);
+    const result = await parser(reader);
+    if (result) {
+      logger.debug('Extracted metadata: title=%s, artist=%s', result.title ?? '(none)', result.artist ?? '(none)');
+    } else {
+      logger.debug('Parser returned null for %s file', reader.extension);
+    }
+    return result;
+  } catch (err) {
+    logger.warn('Failed to extract metadata from %s file: %s', reader.extension, err);
     return null;
   }
 }

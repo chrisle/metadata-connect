@@ -5,6 +5,7 @@ export {
   getSupportedExtensions,
   isExtensionSupported,
 } from './extract.js';
+export type { ExtractMetadataOptions } from './extract.js';
 
 // Types
 export type {
@@ -14,6 +15,10 @@ export type {
   MetadataParser,
 } from './types.js';
 export { PictureType } from './types.js';
+
+// Logger
+export type { Logger } from './types/logger.js';
+export { noopLogger } from './types/logger.js';
 
 // Reader utilities
 export { createBufferReader } from './reader.js';
