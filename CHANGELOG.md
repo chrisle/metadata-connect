@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.1.3
+
+- refactor: add optional pluggable logger to metadata-connect
+
+
 ## v1.1.2
 
 - fix: resolve security vulnerabilities in dependencies
