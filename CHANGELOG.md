@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.1.4
+
+- chore: add npm publish verification step
+
+
 ## v1.1.3
 
 - refactor: add optional pluggable logger to metadata-connect
