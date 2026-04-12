@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.1.6
+
+- chore: update lockfile
+
+
 ## v1.1.5
 
 - chore: update lockfile
