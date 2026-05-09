@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.1.7
+
+- fix(ci): publish no longer fails when several connect repos release together
+
+
 ## v1.1.6
 
 - chore: update lockfile
