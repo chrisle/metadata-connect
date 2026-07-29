@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.1.11
+
+- ci: metadata-connect releases reach npm again instead of failing on every push
+
+
 ## v1.1.10
 
 - chore: drop transient peer:true flags from lock file
