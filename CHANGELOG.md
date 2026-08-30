@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.2.0
+
+- feat: read the record label out of a track's tags
+
+
 ## v1.1.11
 
 - ci: metadata-connect releases reach npm again instead of failing on every push
