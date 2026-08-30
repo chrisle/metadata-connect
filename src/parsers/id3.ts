@@ -19,6 +19,7 @@ const FRAME_IDS = {
   ARTIST: ['TPE1', 'TP1'], // Lead artist
   ALBUM: ['TALB', 'TAL'], // Album
   GENRE: ['TCON', 'TCO'], // Genre
+  LABEL: ['TPUB', 'TPB'], // Publisher (the record label)
   YEAR: ['TYER', 'TYE', 'TDRC'], // Year (TYER for v2.3, TDRC for v2.4)
   BPM: ['TBPM', 'TBP'], // BPM
   KEY: ['TKEY', 'TKE'], // Musical key
@@ -211,6 +212,8 @@ export async function extractFromMp3(reader: FileReader): Promise<ExtractedMetad
       metadata.album = metadata.album ?? parseTextFrame(frameData);
     } else if (matchesFrameId(normalizedId, FRAME_IDS.GENRE)) {
       metadata.genre = metadata.genre ?? parseGenre(parseTextFrame(frameData));
+    } else if (matchesFrameId(normalizedId, FRAME_IDS.LABEL)) {
+      metadata.label = metadata.label ?? parseTextFrame(frameData);
     } else if (matchesFrameId(normalizedId, FRAME_IDS.YEAR)) {
       metadata.year = metadata.year ?? parseYear(parseTextFrame(frameData) ?? '');
     } else if (matchesFrameId(normalizedId, FRAME_IDS.BPM)) {
@@ -255,6 +258,7 @@ function normalizeV22FrameId(frameId: string): string {
     TP1: 'TPE1', // Artist
     TAL: 'TALB', // Album
     TCO: 'TCON', // Genre
+    TPB: 'TPUB', // Publisher
     TYE: 'TYER', // Year
     TBP: 'TBPM', // BPM
     TKE: 'TKEY', // Key

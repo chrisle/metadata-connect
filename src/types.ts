@@ -55,6 +55,8 @@ export interface ExtractedMetadata {
   album?: string;
   /** Genre */
   genre?: string;
+  /** Record label / publisher */
+  label?: string;
   /** Release year */
   year?: number;
   /** Beats per minute */

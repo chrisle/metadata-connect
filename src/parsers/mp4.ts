@@ -31,6 +31,7 @@ const ATOM_TYPES = {
   YEAR: '\xa9day', // Release date/year
   BPM: 'tmpo', // BPM (tempo)
   COVER: 'covr', // Cover artwork
+  FREEFORM: '----', // Non-standard field, identified by its own name atom
   // Additional useful atoms
   ALBUM_ARTIST: 'aART', // Album artist
   COMPOSER: '\xa9wrt', // Composer
@@ -163,6 +164,33 @@ async function readNumericDataAtom(
 }
 
 /**
+ * Field names taggers use inside a freeform atom for the record label.
+ */
+const FREEFORM_LABEL_NAMES = new Set(['LABEL', 'PUBLISHER', 'ORGANIZATION']);
+
+/**
+ * Read the field name out of an iTunes freeform ('----') atom.
+ *
+ * iTunes never standardised an atom for the record label, so taggers store it
+ * as a freeform atom instead: a 'mean' atom holding the namespace (normally
+ * com.apple.iTunes), a 'name' atom holding the field name, and the usual
+ * 'data' atom holding the value. Every freeform atom has the same type, so the
+ * name is the only thing that says which field this one is.
+ */
+async function readFreeformName(
+  reader: FileReader,
+  atomOffset: number,
+  atomSize: number
+): Promise<string | undefined> {
+  const name = await findAtom(reader, atomOffset, atomOffset + atomSize, 'name');
+  if (!name || name.dataSize < 4) return undefined;
+
+  // name atom: 4 bytes version/flags + the field name
+  const content = await reader.read(name.dataOffset + 4, name.dataSize - 4);
+  return cleanText(content.toString('utf8'));
+}
+
+/**
  * Read cover artwork from covr atom
  */
 async function readCoverArtwork(
@@ -255,6 +283,15 @@ export async function extractFromMp4(reader: FileReader): Promise<ExtractedMetad
         const bpm = await readNumericDataAtom(reader, atomDataOffset, atomDataSize);
         if (bpm !== undefined && bpm > 0 && bpm < 500) {
           metadata.bpm = metadata.bpm ?? bpm;
+        }
+        break;
+      }
+
+      case ATOM_TYPES.FREEFORM: {
+        if (metadata.label) break;
+        const name = await readFreeformName(reader, atomDataOffset, atomDataSize);
+        if (name && FREEFORM_LABEL_NAMES.has(name.toUpperCase())) {
+          metadata.label = await readTextDataAtom(reader, atomDataOffset, atomDataSize);
         }
         break;
       }

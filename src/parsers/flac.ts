@@ -23,6 +23,10 @@ const VORBIS_FIELDS = {
   ARTIST: ['ARTIST'],
   ALBUM: ['ALBUM'],
   GENRE: ['GENRE'],
+  // Vorbis never standardised a label field, so taggers picked their own:
+  // ORGANIZATION is the one the spec suggests for the producing entity, and
+  // LABEL/PUBLISHER are what everything from Picard to Mixed In Key writes.
+  LABEL: ['LABEL', 'PUBLISHER', 'ORGANIZATION', 'ORGANISATION'],
   DATE: ['DATE', 'YEAR'],
   BPM: ['BPM', 'TEMPO'],
   KEY: ['KEY', 'INITIALKEY'],
@@ -182,6 +186,7 @@ export async function extractFromFlac(reader: FileReader): Promise<ExtractedMeta
       metadata.artist = metadata.artist ?? getFieldValue(comments, VORBIS_FIELDS.ARTIST);
       metadata.album = metadata.album ?? getFieldValue(comments, VORBIS_FIELDS.ALBUM);
       metadata.genre = metadata.genre ?? getFieldValue(comments, VORBIS_FIELDS.GENRE);
+      metadata.label = metadata.label ?? getFieldValue(comments, VORBIS_FIELDS.LABEL);
 
       const dateValue = getFieldValue(comments, VORBIS_FIELDS.DATE);
       if (dateValue && !metadata.year) {
