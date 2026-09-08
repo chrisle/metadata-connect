@@ -64,7 +64,7 @@
     "url": "https://github.com/chrisle/metadata-connect/issues"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.15.29",
