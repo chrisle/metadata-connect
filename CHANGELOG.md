@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.2.1
+
+- ci: pull requests are tested the way main is
+
+
 ## v1.2.0
 
 - feat: read the record label out of a track's tags
